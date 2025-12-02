@@ -1,0 +1,27 @@
+def caesar_cipher(text, shift, mode='encrypt'):
+    result = ""
+    
+    if mode == 'decrypt':
+        shift = -shift
+
+    for char in text:
+        if char.isalpha():
+            # Determine if character is upper or lower case
+            start = ord('A') if char.isupper() else ord('a')
+            # Perform shift with wrap-around using modulo
+            shifted_char = chr((ord(char) - start + shift) % 26 + start)
+            result += shifted_char
+        else:
+            # Keep special characters and numbers as is
+            result += char
+
+    return result
+
+# Main execution
+if __name__ == "__main__":
+    message = input("Enter your message: ")
+    shift_value = int(input("Enter shift value: "))
+    mode = input("Type 'encrypt' or 'decrypt': ").lower()
+
+    output = caesar_cipher(message, shift_value, mode)
+    print(f"Result: {output}")
